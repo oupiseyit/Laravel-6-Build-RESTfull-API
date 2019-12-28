@@ -27,5 +27,5 @@ Route::put('polls/{poll}','PollsController@update');
 
 Route::delete('polls/{poll}','PollsController@delete');
 
-
+Route::any('error', 'PollsController@error');
 
