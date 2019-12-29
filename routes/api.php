@@ -33,3 +33,8 @@ Route::any('error', 'PollsController@error');
 
 
 Route::get('polls/{poll}/questions', 'PollsController@question');
+
+
+route::get('file/get','FileController@show');
+
+route::post('file/create','FileController@create');

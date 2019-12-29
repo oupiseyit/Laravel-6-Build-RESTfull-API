@@ -10,7 +10,7 @@ use Validator;
 class PollsController extends Controller
 {
     public function index(){
-        return response()->json(Poll::get(),200);
+        return response()->json(Poll::paginate(2),200);
     }
 
     public function show($id){
@@ -19,10 +19,9 @@ class PollsController extends Controller
             return response()->json(null,404);
         }
 
-        $poll_questons = Poll::with('questions')->findOrFail($id);
-
-        $response = new PollResource($poll_questons);
-
+        $poll = Poll::with('questions')->findOrFail($id);
+        $response['poll'] = $poll;
+        $response['questions'] = $poll->questions;
         return response()->json($response,200);
     }
 
@@ -59,7 +58,6 @@ class PollsController extends Controller
         $questions = $poll->questions;
         Return response()->json($questions,200);
     }
-
 
     public function error(){
         return response()->json(['msg' => 'missing payment method'],501);
